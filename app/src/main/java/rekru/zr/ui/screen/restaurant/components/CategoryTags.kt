@@ -66,7 +66,7 @@ fun CategoryTag(
 
     Box(
         modifier = modifier
-            .height(46.dp)
+            .heightIn(46.dp)
             .clip(RoundedCornerShape(33.dp))
             .background(backgroundColor)
             .then(
