@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonColors
@@ -72,8 +73,8 @@ fun FoodItemCard(
 ) {
     Card(
         modifier = modifier
-            .width(153.dp)
-            .height(174.dp)
+            .widthIn(153.dp)
+            .heightIn(174.dp)
             .dropShadow(
                 color = ShadowGray,
                 shape = RoundedCornerShape(25.dp),
@@ -87,26 +88,24 @@ fun FoodItemCard(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .padding(start = 11.dp, end = 12.dp)
                 .padding(top = 12.dp)
+                .fillMaxSize()
         ) {
             Image(
                 painter = painterResource(R.drawable.menu_item),
                 contentDescription = item.name,
                 modifier = Modifier
-                    .width(114.dp)
-                    .height(75.dp)
+                    .widthIn(114.dp)
+                    .heightIn(75.dp)
                     .clip(RoundedCornerShape(15.dp))
                     .align(Alignment.CenterHorizontally),
                 contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.heightIn(6.dp))
 
             Column(
-                modifier = Modifier
-                    .padding(start = 11.dp, end = 12.dp,bottom = 5.dp)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy((-3).dp)
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
                     text = item.name,
@@ -128,7 +127,7 @@ fun FoodItemCard(
                 )
 
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().offset(y= (-10).dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -158,7 +157,7 @@ fun AddButton(
 ) {
     OutlinedButton(
         onClick = { onClick() },
-        modifier = modifier.sizeIn(33.dp,33.dp).offset(x= 12.dp), // No idea why there's extra space at the end of the row
+        modifier = modifier.sizeIn(33.dp,33.dp),
         shape = CircleShape,
         colors = ButtonDefaults.buttonColors().copy(containerColor = RestaurantOrange),
         contentPadding = PaddingValues(0.dp)

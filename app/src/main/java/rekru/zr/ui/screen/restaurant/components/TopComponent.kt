@@ -53,7 +53,7 @@ fun TopComponent(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                modifier = Modifier.width(5.dp).height(10.dp),
+                modifier = Modifier.widthIn(5.dp).heightIn(10.dp),
                 painter = painterResource(R.drawable.back),
                 contentDescription = "Current Picture indicator",
                 tint = TextPrimary
@@ -76,7 +76,7 @@ fun TopComponent(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                modifier = Modifier.size(16.dp),
+                modifier = Modifier.widthIn(16.dp).heightIn(16.dp),
                 painter = painterResource(R.drawable.more),
                 contentDescription = "Current Picture indicator",
                 tint = TextPrimary

@@ -86,14 +86,14 @@ fun RestaurantDetailScreen(
                     description = restaurant.restaurantDescription
                 )
 
-                Spacer(modifier = Modifier.heightIn(32.dp))
+                Spacer(modifier = Modifier.heightIn(28.dp))
 
                 CategoryTags(
                     selectedCategory = selectedCategory,
                     onCategorySelected = viewModel::selectCategory
                 )
 
-                Spacer(modifier = Modifier.heightIn(32.dp))
+                Spacer(modifier = Modifier.heightIn(28.dp))
 
                 SectionTitle(
                     selectedCategory = selectedCategory,
@@ -114,7 +114,7 @@ fun RestaurantDetailScreen(
 
 @Preview(showBackground = true, device = Devices.PIXEL_4, name = "PIXEL_4")
 @Composable
-fun FinalPreview() {
+fun JpegPreview() {
     ZRTheme {
         Image(
             modifier = Modifier.fillMaxSize(),

@@ -33,7 +33,7 @@ fun FoodItemGrid(
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = modifier.fillMaxWidth().padding(bottom = 6.dp),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(21.dp),
         verticalArrangement = Arrangement.spacedBy(17.dp)
     ) {
