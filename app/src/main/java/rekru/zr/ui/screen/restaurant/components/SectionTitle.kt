@@ -4,13 +4,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import rekru.zr.R
 import rekru.zr.ui.theme.Sen
 import rekru.zr.ui.theme.TextPrimary
 import rekru.zr.ui.theme.ZRTheme
@@ -20,11 +17,12 @@ import rekru.zr.ui.theme.ZRTheme
  */
 @Composable
 fun SectionTitle(
-    title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    selectedCategory: FoodCategory,
+    amountOfSelectedFood: Int
 ) {
     Text(
-        text = title,
+        text = "$selectedCategory ($amountOfSelectedFood)",
         fontSize = 20.sp,
         fontWeight = FontWeight.Normal,
         color = TextPrimary,
@@ -41,7 +39,8 @@ fun SectionTitle(
 fun SectionTitlePreview() {
     ZRTheme {
         SectionTitle(
-            title = "Burger (10)"
+            amountOfSelectedFood = 10,
+            selectedCategory = FoodCategory.Burger
         )
     }
 }

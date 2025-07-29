@@ -32,6 +32,7 @@ fun RestaurantDetails(
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = TextPrimary,
+            letterSpacing = 0.sp,
             fontFamily = Sen
         )
 

@@ -29,8 +29,8 @@ class MainActivity : ComponentActivity() {
                     onMenuClick = {
                         println("Menu clicked")
                     },
-                    onFoodItemAdd = { itemId ->
-                        println("Added item $itemId to cart")
+                    onFoodItemAdd = { foodItem ->
+                        println("Added item $foodItem to cart")
                     }
                 )
             }

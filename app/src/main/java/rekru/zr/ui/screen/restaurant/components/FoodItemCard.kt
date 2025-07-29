@@ -1,5 +1,6 @@
 package rekru.zr.ui.screen.restaurant.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,22 +9,29 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -51,6 +59,7 @@ import rekru.zr.ui.theme.TextPrimary
 import rekru.zr.ui.theme.TextSecondary
 import rekru.zr.ui.theme.TextTertiary
 import rekru.zr.ui.theme.ZRTheme
+import rekru.zr.utils.dropShadow
 
 /**
  * Food item card component
@@ -65,17 +74,16 @@ fun FoodItemCard(
         modifier = modifier
             .width(153.dp)
             .height(174.dp)
-            .shadow(
-                elevation = 30.dp,
-                shape =  RoundedCornerShape(25.dp),
-                ambientColor = ShadowGray,
-                spotColor = ShadowGray
-            )
-            .border(1.dp, Color.White,  RoundedCornerShape(25.dp))
-        ,
+            .dropShadow(
+                color = ShadowGray,
+                shape = RoundedCornerShape(25.dp),
+                blur = 30.dp,
+                offsetX = 12.dp,
+                offsetY = 12.dp
+            ),
         shape = RoundedCornerShape(25.dp),
-        colors = CardDefaults.cardColors(containerColor = CardBackground),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+        border = BorderStroke(2.dp, Color.White),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
     ) {
         Column(
             modifier = Modifier
@@ -96,20 +104,27 @@ fun FoodItemCard(
 
             Column(
                 modifier = Modifier
-                    .padding(start = 11.dp, end = 13.dp)
+                    .padding(start = 11.dp, end = 12.dp,bottom = 5.dp)
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
+                verticalArrangement = Arrangement.spacedBy((-3).dp)
             ) {
                 Text(
                     text = item.name,
                     maxLines = 1,
-                    style = MaterialTheme.typography.labelLarge
+                    fontFamily = Sen,
+                    letterSpacing = (-0.333).sp,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = item.description,
                     maxLines = 1,
-                    style = MaterialTheme.typography.labelMedium
+                    fontFamily = Sen,
+                    letterSpacing = 0.sp,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = TextTertiary
                 )
 
                 Row(
@@ -141,26 +156,20 @@ fun AddButton(
     onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    IconButton(
+    OutlinedButton(
         onClick = { onClick() },
-        modifier = modifier
-            .size(30.dp)
-            .clip(CircleShape)
-            .background(RestaurantOrange)
-            .shadow(
-                elevation = 4.dp,
-                shape = CircleShape,
-                ambientColor = Color.Black.copy(alpha = 0.25f),
-                spotColor = Color.Black.copy(alpha = 0.25f)
-            )
+        modifier = modifier.sizeIn(33.dp,33.dp).offset(x= 12.dp), // No idea why there's extra space at the end of the row
+        shape = CircleShape,
+        colors = ButtonDefaults.buttonColors().copy(containerColor = RestaurantOrange),
+        contentPadding = PaddingValues(0.dp)
     ) {
         Icon(
             painter = painterResource(R.drawable.plus),
             contentDescription = "Add menu item to cart button",
             tint = Color.White,
             modifier = Modifier
-                .width(10.81.dp)
-                .height(9.57.dp)
+                .width(11.dp)
+                .height(10.dp)
         )
     }
 }
@@ -171,30 +180,27 @@ fun AddButton(
 @Composable
 fun FoodItemCardPreview() {
     ZRTheme {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(16.dp)
-        ) {
-            FoodItemCard(
-                item = FoodItem(
-                    id = "1",
-                    name = "Burger Ferguson",
-                    description = "Spicy restaurant",
-                    price = "$40",
-                ),
-                onAddClick = {}
-            )
+        FoodItemCard(
+            item = FoodItem(
+                category = FoodCategory.Burger,
+                name = "Burger Ferguson",
+                description = "Spicy Restaurant",
+                price = "$40",
+            ),
+            onAddClick = {}
+        )
+    }
+}
 
-            FoodItemCard(
-                item = FoodItem(
-                    id = "3",
-                    name = "Meat Pizza",
-                    description = "Spicy burger",
-                    price = "$40",
-                ),
-                onAddClick = {}
-            )
-        }
+@Preview(showBackground = true, device = Devices.PIXEL_4, name = "PIXEL_4")
+@Composable
+fun PreviewFinalCards() {
+    ZRTheme {
+        Image(
+            painter = painterResource(R.drawable.image_cards),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }
 

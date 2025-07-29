@@ -1,15 +1,19 @@
 package rekru.zr.ui.screen.restaurant.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import rekru.zr.ui.theme.ZRTheme
+import rekru.zr.utils.mapOfFoodItems
 
 data class FoodItem(
-    val id: String,
+    val category: FoodCategory,
     val name: String,
     val description: String,
     val price: String,
@@ -20,71 +24,24 @@ data class FoodItem(
  */
 @Composable
 fun FoodItemGrid(
+    selectedCategory: FoodCategory,
+    foodItems: Map<FoodCategory, List<FoodItem>> = emptyMap(),
     modifier: Modifier = Modifier,
-    onItemAdd: (String) -> Unit = {}
+    onItemAdd: (FoodItem) -> Unit = {},
 ) {
-    val foodItems = listOf(
-        FoodItem(
-            id = "1",
-            name = "Burger Ferguson",
-            description = "Spicy restaurant",
-            price = "$40",
-        ),
-        FoodItem(
-            id = "2",
-            name = "Rockin' Burgers",
-            description = "Cafecafachino",
-            price = "$40",
-        ),
-        FoodItem(
-            id = "3",
-            name = "Meat Pizza",
-            description = "Spicy burger",
-            price = "$40",
-        ),
-        FoodItem(
-            id = "4",
-            name = "Meat Pizza",
-            description = "Spicy burger",
-            price = "$40",
-        )
-    )
+    val items = foodItems[selectedCategory].orEmpty()
 
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = modifier.fillMaxWidth().padding(bottom = 6.dp),
+        horizontalArrangement = Arrangement.spacedBy(21.dp),
+        verticalArrangement = Arrangement.spacedBy(17.dp)
     ) {
-        // First row - Burger items
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
+        items(items) { item ->
             FoodItemCard(
-                item = foodItems[0],
-                onAddClick = { onItemAdd(foodItems[0].id) },
-                modifier = Modifier.weight(1f)
-            )
-            FoodItemCard(
-                item = foodItems[1],
-                onAddClick = { onItemAdd(foodItems[1].id) },
-                modifier = Modifier.weight(1f)
-            )
-        }
-
-        // Second row - Pizza items
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            FoodItemCard(
-                item = foodItems[2],
-                onAddClick = { onItemAdd(foodItems[2].id) },
-                modifier = Modifier.weight(1f)
-            )
-            FoodItemCard(
-                item = foodItems[3],
-                onAddClick = { onItemAdd(foodItems[3].id) },
-                modifier = Modifier.weight(1f)
+                item = item,
+                onAddClick = { onItemAdd(item) },
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -98,7 +55,9 @@ fun FoodItemGrid(
 fun FoodItemGridPreview() {
     ZRTheme {
         FoodItemGrid(
-            modifier = Modifier.padding(24.dp)
+            foodItems = mapOfFoodItems(),
+            modifier = Modifier.padding(24.dp),
+            selectedCategory = FoodCategory.Burger
         )
     }
 }

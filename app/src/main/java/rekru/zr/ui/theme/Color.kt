@@ -26,5 +26,5 @@ val TextTertiary = Color(0xFF646982)
 val TextMuted = Color(0xFFA0A5BA)
 val CardBackground = Color(0xFFFFFFFF)
 val TagBorderGray = Color(0xFFEDEDED)
-val ShadowGray = Color(0x26969696)
+val ShadowGray = Color(0x2696969a)
 

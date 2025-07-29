@@ -77,7 +77,7 @@ fun RestaurantImageCarousel(
                 contentDescription = "Restaurant image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(321.dp)
+                    .height(329.dp)
                     .clip(
                         RoundedCornerShape(
                             topStart = 0.dp,
@@ -93,7 +93,7 @@ fun RestaurantImageCarousel(
         Row(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 28.dp),
+                .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(10.3.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

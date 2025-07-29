@@ -1,50 +1,49 @@
 package rekru.zr.ui.screen.restaurant.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
-import rekru.zr.R
 import rekru.zr.ui.theme.*
+
+enum class FoodCategory(private val displayName: String) {
+    Burger("Burger"),
+    Sandwich("Sandwich"),
+    Pizza("Pizza"),
+    Sanwich("Sanwich");
+
+    override fun toString(): String = displayName
+}
 
 /**
  * Category tags component with selectable chips
  */
 @Composable
 fun CategoryTags(
-    categories: List<String>,
-    selectedCategory: String,
+    selectedCategory: FoodCategory,
     modifier: Modifier = Modifier,
-    onCategorySelected: (String) -> Unit = {},
+    onCategorySelected: (FoodCategory) -> Unit = {},
 ) {
+    val categories = FoodCategory.entries
+
     LazyRow(
         modifier = modifier.fillMaxWidth(),
     ) {
         items(categories) { category ->
             CategoryTag(
-                text = category,
+                text = category.toString(),
                 isSelected = category == selectedCategory,
                 onClick = { onCategorySelected(category) }
             )
@@ -73,7 +72,7 @@ fun CategoryTag(
         // min padding value given anywhere in the Figma design
     TextButton(
         onClick = onClick,
-        modifier = modifier.height(46.dp),
+        modifier = modifier.heightIn(46.dp),
         border = BorderStroke( width = 2.dp, color = borderColor),
         colors = ButtonDefaults.buttonColors().copy(containerColor = backgroundColor),
         contentPadding = PaddingValues(horizontal = 20.dp),
@@ -98,8 +97,7 @@ fun CategoryTag(
 fun CategoryTagsPreview() {
     ZRTheme {
         CategoryTags(
-            categories = listOf("Burger", "Sandwich", "Pizza", "Sanwich"),
-            selectedCategory = "Burger",
+            selectedCategory = FoodCategory.Burger,
             modifier = Modifier.padding(24.dp)
         )
     }

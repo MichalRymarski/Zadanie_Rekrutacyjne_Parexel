@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -20,22 +18,31 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import rekru.zr.R
 import rekru.zr.ui.screen.restaurant.components.*
 import rekru.zr.ui.theme.ZRTheme
+import rekru.zr.utils.mapOfFoodItems
 import rekru.zr.viewmodel.RestaurantViewmodel
+
+data class Restaurant(
+    val foodItems: Map<FoodCategory, List<FoodItem>> = mapOfFoodItems(),
+    val restaurantName: String = "Spicy Restaurant",
+    val restaurantDescription: String = "Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+)
 
 /**
  * Main Restaurant Detail Screen displaying restaurant information, categories, and food items
  */
 @Composable
 fun RestaurantDetailScreen(
+    restaurant: Restaurant = Restaurant(),
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     onMenuClick: () -> Unit = {},
-    onFoodItemAdd: (String) -> Unit = {},
+    onFoodItemAdd: (FoodItem) -> Unit = {},
     viewModel: RestaurantViewmodel = hiltViewModel(),
 ) {
     val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
     val carouselCurrentPage by viewModel.carouselCurrentPage.collectAsStateWithLifecycle()
     val isAutoScrollActive by viewModel.isAutoScrollActive.collectAsStateWithLifecycle()
+    val amountOfSelectedFood = restaurant.foodItems[selectedCategory]?.count() ?: 0
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -45,7 +52,6 @@ fun RestaurantDetailScreen(
                 //bottom padding for navbar
                 .padding(bottom = it.calculateBottomPadding())
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
         ) {
             Box {
                 RestaurantImageCarousel(
@@ -76,14 +82,13 @@ fun RestaurantDetailScreen(
                 Spacer(modifier = Modifier.heightIn(16.dp))
 
                 RestaurantDetails(
-                    name = "Spicy restaurant",
-                    description = "Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet."
+                    name = restaurant.restaurantName,
+                    description = restaurant.restaurantDescription
                 )
 
                 Spacer(modifier = Modifier.heightIn(32.dp))
 
                 CategoryTags(
-                    categories = listOf("Burger", "Sandwich", "Pizza", "Sanwich"),
                     selectedCategory = selectedCategory,
                     onCategorySelected = viewModel::selectCategory
                 )
@@ -91,13 +96,16 @@ fun RestaurantDetailScreen(
                 Spacer(modifier = Modifier.heightIn(32.dp))
 
                 SectionTitle(
-                    title = "Burger (10)"
+                    selectedCategory = selectedCategory,
+                    amountOfSelectedFood = amountOfSelectedFood
                 )
 
                 Spacer(modifier = Modifier.heightIn(16.dp))
 
                 FoodItemGrid(
-                    onItemAdd = onFoodItemAdd
+                    selectedCategory = selectedCategory,
+                    onItemAdd = onFoodItemAdd,
+                    foodItems = restaurant.foodItems,
                 )
             }
         }

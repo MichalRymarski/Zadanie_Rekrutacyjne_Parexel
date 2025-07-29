@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import rekru.zr.ui.screen.restaurant.components.FoodCategory
 import javax.inject.Inject
 
 /**
@@ -19,8 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 open class RestaurantViewmodel @Inject constructor() : ViewModel() {
 
-    private val _selectedCategory = MutableStateFlow("Burger")
-    val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
+    private val _selectedCategory = MutableStateFlow(FoodCategory.Burger)
+    val selectedCategory: StateFlow<FoodCategory> = _selectedCategory.asStateFlow()
 
     private val _carouselCurrentPage = MutableStateFlow(2)
     val carouselCurrentPage: StateFlow<Int> = _carouselCurrentPage.asStateFlow()
@@ -39,7 +40,7 @@ open class RestaurantViewmodel @Inject constructor() : ViewModel() {
     /**
      * Selects a category and updates the UI state
      */
-    fun selectCategory(category: String) {
+    fun selectCategory(category: FoodCategory) {
         _selectedCategory.value = category
     }
 

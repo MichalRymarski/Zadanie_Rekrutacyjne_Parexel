@@ -19,7 +19,6 @@ val Sen = FontFamily(
     Font(R.font.sen_semibold, weight = FontWeight.SemiBold),
     )
 val Typography = Typography(
-
     bodyLarge = TextStyle(
         fontFamily = Sen,
         fontWeight = FontWeight.Normal,
