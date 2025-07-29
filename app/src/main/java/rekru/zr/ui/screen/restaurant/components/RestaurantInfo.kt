@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Icon
@@ -145,7 +146,7 @@ private fun StarIcon() {
     Icon(
         painter = painterResource(R.drawable.star),
         tint = RestaurantOrangeSecondary,
-        modifier = Modifier.size(20.dp),
+        modifier = Modifier.sizeIn(20.dp,20.dp),
         contentDescription = "Rating icon"
     )
 }
@@ -155,7 +156,7 @@ private fun DeliveryTruckIcon() {
     Icon(
         painter = painterResource(R.drawable.delivery),
         tint = RestaurantOrangeSecondary,
-        modifier = Modifier.size(20.dp),
+        modifier = Modifier.sizeIn(20.dp,20.dp),
         contentDescription = "Rating icon"
     )
 }
@@ -165,7 +166,7 @@ private fun ClockIcon() {
     Icon(
         painter = painterResource(R.drawable.clock),
         tint = RestaurantOrangeSecondary,
-        modifier = Modifier.size(20.dp),
+        modifier = Modifier.sizeIn(20.dp,20.dp),
         contentDescription = "Rating icon"
     )
 }

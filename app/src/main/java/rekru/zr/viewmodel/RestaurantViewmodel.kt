@@ -29,7 +29,7 @@ open class RestaurantViewmodel @Inject constructor() : ViewModel() {
     val isAutoScrollActive: StateFlow<Boolean> = _isAutoScrollActive.asStateFlow()
 
     private var autoScrollJob: Job? = null
-    private val carouselTotalPages = 6
+    private val carouselTotalPages = 5
     private val autoScrollDelayMs = 3000L
 
     init {

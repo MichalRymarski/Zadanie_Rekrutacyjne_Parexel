@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Ensure status bar is transparent and content goes behind it (
+        // Ensure status bar is transparent and content goes behind it
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -27,11 +27,9 @@ class MainActivity : ComponentActivity() {
                 RestaurantDetailScreen(
                     onBackClick = { finish() },
                     onMenuClick = {
-                        // Handle menu click - could show options menu
                         println("Menu clicked")
                     },
                     onFoodItemAdd = { itemId ->
-                        // Handle add to cart functionality
                         println("Added item $itemId to cart")
                     }
                 )

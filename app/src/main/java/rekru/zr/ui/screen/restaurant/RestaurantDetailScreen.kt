@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -36,12 +37,13 @@ fun RestaurantDetailScreen(
     val carouselCurrentPage by viewModel.carouselCurrentPage.collectAsStateWithLifecycle()
     val isAutoScrollActive by viewModel.isAutoScrollActive.collectAsStateWithLifecycle()
 
-    Surface(
+    Scaffold(
         modifier = modifier.fillMaxSize(),
-        color = Color.White
     ) {
         Column(
             modifier = Modifier
+                //bottom padding for navbar
+                .padding(bottom = it.calculateBottomPadding())
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
@@ -60,7 +62,7 @@ fun RestaurantDetailScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.heightIn(25.dp))
 
             Column(
                 modifier = Modifier.padding(horizontal = 24.dp)
@@ -71,14 +73,14 @@ fun RestaurantDetailScreen(
                     deliveryTime = "20 min",
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.heightIn(16.dp))
 
                 RestaurantDetails(
                     name = "Spicy restaurant",
                     description = "Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet."
                 )
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.heightIn(32.dp))
 
                 CategoryTags(
                     categories = listOf("Burger", "Sandwich", "Pizza", "Sanwich"),
@@ -86,19 +88,13 @@ fun RestaurantDetailScreen(
                     onCategorySelected = viewModel::selectCategory
                 )
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.heightIn(32.dp))
 
                 SectionTitle(
                     title = "Burger (10)"
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
-
-                FoodItemGrid(
-                    onItemAdd = onFoodItemAdd
-                )
-
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.heightIn(16.dp))
 
                 FoodItemGrid(
                     onItemAdd = onFoodItemAdd

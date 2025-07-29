@@ -43,7 +43,7 @@ import kotlin.reflect.KFunction1
 fun RestaurantImageCarousel(
     modifier: Modifier = Modifier,
     currentPage: Int = 0,
-    totalPages: Int = 6,
+    totalPages: Int = 5,
     onPageChanged: (Int) -> Unit = {},
     setAutoscroll: (Boolean) -> Unit = {},
 ) {
