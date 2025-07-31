@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
@@ -42,12 +43,12 @@ fun RestaurantInfo(
     isFreeDelivery: Boolean,
     deliveryTime: String,
     modifier: Modifier = Modifier
-        .widthIn(263.dp)
+        .width(260.dp)
         .heightIn(20.dp),
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.spacedBy(36.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Rating with star icon
@@ -105,8 +106,8 @@ fun Rating(rating: String = "4.7") {
 private fun DeliveryTime(deliveryTime: String = "20 min") {
     Row(
         modifier = Modifier.heightIn(20.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        verticalAlignment = Alignment.Bottom,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         ClockIcon()
         Text(
@@ -127,8 +128,8 @@ private fun DeliveryTime(deliveryTime: String = "20 min") {
 private fun DeliveryCost(cost: String = "Free") {
     Row(
         modifier = Modifier.heightIn(20.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        verticalAlignment = Alignment.Bottom,
+        horizontalArrangement = Arrangement.spacedBy(9.dp)
     ) {
         DeliveryTruckIcon()
         Text(

@@ -46,6 +46,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -96,38 +97,42 @@ fun FoodItemCard(
                 painter = painterResource(R.drawable.menu_item),
                 contentDescription = item.name,
                 modifier = Modifier
-                    .widthIn(114.dp)
+                    .widthIn(112.dp)
                     .heightIn(75.dp)
+                    .offset(x=(-2).dp)
                     .clip(RoundedCornerShape(15.dp))
-                    .align(Alignment.CenterHorizontally),
+                    .align(Alignment.CenterHorizontally)
+                ,
                 contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.heightIn(6.dp))
+            Spacer(modifier = Modifier.heightIn((5.5).dp))
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy((-3).dp)
             ) {
                 Text(
                     text = item.name,
                     maxLines = 1,
                     fontFamily = Sen,
-                    letterSpacing = (-0.333).sp,
+                    letterSpacing = (0.15).sp,
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+
                 )
 
                 Text(
                     text = item.description,
                     maxLines = 1,
                     fontFamily = Sen,
-                    letterSpacing = 0.sp,
+                    letterSpacing = (0.2).sp,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
                     color = TextTertiary
                 )
 
                 Row(
-                    modifier = Modifier.fillMaxWidth().offset(y= (-10).dp),
+                    modifier = Modifier.fillMaxWidth().offset(y= (-8).dp,x=1.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -167,8 +172,8 @@ fun AddButton(
             contentDescription = "Add menu item to cart button",
             tint = Color.White,
             modifier = Modifier
-                .width(11.dp)
-                .height(10.dp)
+                .width(14.dp)
+                .height(14.dp)
         )
     }
 }
@@ -179,15 +184,21 @@ fun AddButton(
 @Composable
 fun FoodItemCardPreview() {
     ZRTheme {
-        FoodItemCard(
-            item = FoodItem(
-                category = FoodCategory.Burger,
-                name = "Burger Ferguson",
-                description = "Spicy Restaurant",
-                price = "$40",
-            ),
-            onAddClick = {}
-        )
+        Box(
+            modifier = Modifier
+                .width(153.dp)
+                .height(174.dp)
+        ){
+            FoodItemCard(
+                item = FoodItem(
+                    category = FoodCategory.Burger,
+                    name = "Burger Ferguson",
+                    description = "Spicy Restaurant",
+                    price = "$40",
+                ),
+                onAddClick = {}
+            )
+        }
     }
 }
 

@@ -19,7 +19,7 @@ import rekru.zr.ui.theme.ZRTheme
 fun SectionTitle(
     modifier: Modifier = Modifier,
     selectedCategory: FoodCategory,
-    amountOfSelectedFood: Int
+    amountOfSelectedFood: Int,
 ) {
     Text(
         text = "$selectedCategory ($amountOfSelectedFood)",
@@ -27,8 +27,9 @@ fun SectionTitle(
         fontWeight = FontWeight.Normal,
         color = TextPrimary,
         fontFamily = Sen,
-        modifier = modifier.fillMaxWidth()
-    )
+        modifier = modifier.fillMaxWidth(),
+        letterSpacing = 0.2.sp,
+        )
 }
 
 

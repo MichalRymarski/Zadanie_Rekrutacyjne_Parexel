@@ -7,17 +7,21 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import rekru.zr.R
 import rekru.zr.ui.screen.restaurant.components.*
 import rekru.zr.ui.theme.ZRTheme
+import rekru.zr.utils.getExampleStates
 import rekru.zr.utils.mapOfFoodItems
 import rekru.zr.viewmodel.RestaurantViewmodel
 
@@ -51,7 +55,8 @@ fun RestaurantDetailScreen(
             modifier = Modifier
                 //bottom padding for navbar
                 .padding(bottom = it.calculateBottomPadding())
-                .fillMaxSize()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Box {
                 RestaurantImageCarousel(
@@ -64,71 +69,88 @@ fun RestaurantDetailScreen(
                 TopComponent(
                     onBackClick = onBackClick,
                     onMenuClick = onMenuClick,
-                    modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 50.dp)
+                    modifier = Modifier.padding(start = 29.dp, end = 29.dp, top = 50.dp)
                 )
             }
 
             Spacer(modifier = Modifier.heightIn(25.dp))
 
             Column(
-                modifier = Modifier.padding(horizontal = 24.dp)
+                modifier = Modifier.padding(start = 29.dp,end = 24.dp)
             ) {
                 RestaurantInfo(
                     rating = 4.7f,
                     isFreeDelivery = true,
                     deliveryTime = "20 min",
+                    modifier = Modifier
+                        .widthIn(263.dp)
+                        .heightIn(20.dp)
+                        .offset(y = (-3).dp)
                 )
 
-                Spacer(modifier = Modifier.heightIn(16.dp))
+                Spacer(modifier = Modifier.heightIn(13.dp))
 
                 RestaurantDetails(
                     name = restaurant.restaurantName,
                     description = restaurant.restaurantDescription
                 )
+            }
 
-                Spacer(modifier = Modifier.heightIn(28.dp))
+            Column(
+                modifier = Modifier.padding(start= 29.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                Spacer(modifier = Modifier.heightIn(32.dp))
 
                 CategoryTags(
                     selectedCategory = selectedCategory,
                     onCategorySelected = viewModel::selectCategory
                 )
 
-                Spacer(modifier = Modifier.heightIn(28.dp))
+                Spacer(modifier = Modifier.heightIn(32.dp))
 
                 SectionTitle(
                     selectedCategory = selectedCategory,
                     amountOfSelectedFood = amountOfSelectedFood
                 )
-
-                Spacer(modifier = Modifier.heightIn(16.dp))
-
-                FoodItemGrid(
-                    selectedCategory = selectedCategory,
-                    onItemAdd = onFoodItemAdd,
-                    foodItems = restaurant.foodItems,
-                )
             }
-        }
-    }
-}
 
-@Preview(showBackground = true, device = Devices.PIXEL_4, name = "PIXEL_4")
-@Composable
-fun JpegPreview() {
-    ZRTheme {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = painterResource(R.drawable.obrazek),
-            contentDescription = "Image of the figma design",
-            contentScale = ContentScale.FillBounds
-        )
+            Spacer(modifier = Modifier.heightIn(16.dp))
+
+            FoodItemGrid(
+                selectedCategory = selectedCategory,
+                onItemAdd = onFoodItemAdd,
+                foodItems = restaurant.foodItems,
+                modifier =  Modifier.padding(start = 30.dp,end = 23.dp)
+            )
+        }
     }
 }
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Preview(showBackground = true, device = Devices.PIXEL_4, name = "PIXEL_4")
-@Preview(showBackground = true, device = Devices.NEXUS_5, name = "NEXUS_5")
-@Preview(showBackground = true, device = Devices.PIXEL_7, name = "PIXEL_7")
+@Composable
+fun JpegPreview() {
+    ZRTheme {
+        Box(Modifier.fillMaxSize()) {
+            Image(
+                modifier = Modifier.fillMaxSize(),
+                painter = painterResource(R.drawable.obrazek),
+                contentDescription = "Image of the figma design",
+                contentScale = ContentScale.Fit
+            )
+            RestaurantDetailScreen(
+                viewModel = RestaurantViewmodel(),
+                modifier = Modifier
+                    .alpha(0.5f)
+                    .zIndex(2f)
+            )
+        }
+    }
+}
+
+@SuppressLint("ViewModelConstructorInComposable")
+@Preview(showBackground = true, device = Devices.PIXEL_4, name = "PIXEL_4")
 @Composable
 fun RestaurantDetailScreenPreview() {
     ZRTheme {

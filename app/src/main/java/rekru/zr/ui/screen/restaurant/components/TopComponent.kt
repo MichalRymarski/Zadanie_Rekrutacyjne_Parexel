@@ -35,11 +35,11 @@ fun TopComponent(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(45.dp)
+            .heightIn(45.dp)
     ) {
         Box(
             modifier = Modifier
-                .size(45.dp)
+                .sizeIn(45.dp,45.dp)
                 .shadow(
                     elevation = 8.dp,
                     shape = CircleShape,
@@ -62,7 +62,7 @@ fun TopComponent(
 
         Box(
             modifier = Modifier
-                .size(45.dp)
+                .sizeIn(45.dp,45.dp)
                 .shadow(
                     elevation = 8.dp,
                     shape = CircleShape,

@@ -21,19 +21,19 @@ import rekru.zr.ui.theme.*
 fun RestaurantDetails(
     name: String,
     description: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy((6.5).dp)
     ) {
         Text(
             text = name,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = TextPrimary,
-            letterSpacing = 0.sp,
-            fontFamily = Sen
+            letterSpacing = 0.2.sp,
+            fontFamily = Sen,
         )
 
         Text(
@@ -42,11 +42,11 @@ fun RestaurantDetails(
             fontWeight = FontWeight.Normal,
             color = TextMuted,
             lineHeight = 24.sp,
-            fontFamily = Sen
+            fontFamily = Sen,
+            letterSpacing = 0.22.sp,
         )
     }
 }
-
 
 
 @Preview(showBackground = true, device = Devices.NEXUS_5, name = "NEXUS_5")

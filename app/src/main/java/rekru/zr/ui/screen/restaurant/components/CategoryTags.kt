@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import rekru.zr.ui.theme.*
+import rekru.zr.utils.getExampleStates
 
 enum class FoodCategory(private val displayName: String) {
     Burger("Burger"),
@@ -27,11 +28,13 @@ enum class FoodCategory(private val displayName: String) {
     override fun toString(): String = displayName
 }
 
+
 /**
  * Category tags component with selectable chips
  */
 @Composable
 fun CategoryTags(
+    categoryTagsState: Map<FoodCategory, PaddingValues> = getExampleStates(),
     selectedCategory: FoodCategory,
     modifier: Modifier = Modifier,
     onCategorySelected: (FoodCategory) -> Unit = {},
@@ -43,6 +46,7 @@ fun CategoryTags(
     ) {
         items(categories) { category ->
             CategoryTag(
+                state = categoryTagsState[category]!!,
                 text = category.toString(),
                 isSelected = category == selectedCategory,
                 onClick = { onCategorySelected(category) }
@@ -63,19 +67,20 @@ fun CategoryTag(
     text: String,
     isSelected: Boolean,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    state: PaddingValues,
 ) {
     val backgroundColor = if (isSelected) RestaurantOrange else Color.Transparent
     val borderColor = if (isSelected) Color.Transparent else TagBorderGray
     val textColor = if (isSelected) Color.White else TextPrimary
-        // The most problematic component. The word inside has a different padding depending on how tall and how wide is the word, and to my knowledge there's no
-        // min padding value given anywhere in the Figma design
+    // The most problematic component. The word inside has a different padding depending on how tall and how wide is the word, and to my knowledge there's no
+    // min padding value given anywhere in the Figma design
     TextButton(
         onClick = onClick,
         modifier = modifier.heightIn(46.dp),
-        border = BorderStroke( width = 2.dp, color = borderColor),
+        border = BorderStroke(width = 2.dp, color = borderColor),
         colors = ButtonDefaults.buttonColors().copy(containerColor = backgroundColor),
-        contentPadding = PaddingValues(horizontal = 20.dp),
+        contentPadding = state,
         shape = RoundedCornerShape(33.dp),
     ) {
         Text(
@@ -84,7 +89,7 @@ fun CategoryTag(
             fontWeight = FontWeight.Normal,
             color = textColor,
             fontFamily = Sen,
-            letterSpacing = (-0.333).sp,
+            letterSpacing = (-0.12).sp,
             maxLines = 1,
         )
     }
@@ -112,7 +117,8 @@ fun SingleCategoryTagSelectedPreview() {
         CategoryTag(
             text = "Burger",
             isSelected = true,
-            onClick = {}
+            onClick = {},
+            state = PaddingValues(horizontal = 20.dp, vertical = (13.5).dp),
         )
     }
 }
@@ -126,7 +132,8 @@ fun SingleCategoryTagUnselectedPreview() {
         CategoryTag(
             text = "Burger",
             isSelected = false,
-            onClick = {}
+            onClick = {},
+            state = PaddingValues(horizontal = 20.dp, vertical = (13.5).dp),
         )
     }
 }
